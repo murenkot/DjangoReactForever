@@ -12,23 +12,33 @@ export class Form extends Component {
     };
 
     static propTypes = {
-        addLead: PropTypes.func.isRequired
+        addLead: PropTypes.func.isRequired,
     };
+
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
 
     onSubmit = e => {
+
+
+
         e.preventDefault();
         const { name, email, message } = this.state;
         const lead = { name, email, message };
         this.props.addLead(lead);
+        this.setState({
+            name: '',
+            email: '',
+            message: '',
+        })
+
     }
 
     render() {
         const { name, email, message } = this.state;
         return (
-            <div className="card card-body mt-4 mb-4">
+            <div className="card card-body mt-4 mb-4" >
                 <h2>Add Lead</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
@@ -71,5 +81,7 @@ export class Form extends Component {
         )
     }
 }
+
+
 
 export default connect(null, { addLead })(Form);
